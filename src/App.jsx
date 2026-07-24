@@ -15,6 +15,7 @@ import FavManagerModal from "./components/FavManagerModal";
 import SyncDialog from "./components/SyncDialog";
 import AddonDetailModal from "./components/AddonDetailModal";
 import ToastContainer from "./components/ToastContainer";
+import OnboardingModal from "./components/OnboardingModal";
 
 import "./App.css";
 
@@ -37,6 +38,7 @@ export default function App() {
   const [accounts, setAccounts] = useLocalStorage("stremio_accounts", []);
   const [favorites, setFavorites] = useLocalStorage("stremio_favorites", []);
   const [authKey, setAuthKey] = useLocalStorage("stremio_auth_key", null);
+  const [onboardingDone, setOnboardingDone] = useLocalStorage("stremio_onboarding_done", false);
 
   /* ── Ephemeral state ─────────────────────────── */
   const [addons, setAddonsState] = useState([]);
@@ -361,6 +363,12 @@ export default function App() {
         <LoginForm loading={loading} onSubmit={handleLoginSubmit} />
         <SavedAccounts accounts={accounts} loading={loading} onLogin={loginWithKey} onRemove={handleRemoveAccount} />
         <ToastContainer toasts={toasts} onDismiss={removeToast} />
+
+        {!onboardingDone && (
+          <OnboardingModal
+            onDontShowAgain={() => setOnboardingDone(true)}
+          />
+        )}
       </main>
     );
   }
@@ -461,6 +469,12 @@ export default function App() {
       )}
 
       <ToastContainer toasts={toasts} onDismiss={removeToast} />
+
+      {!onboardingDone && (
+        <OnboardingModal
+          onDontShowAgain={() => setOnboardingDone(true)}
+        />
+      )}
     </main>
   );
 }
