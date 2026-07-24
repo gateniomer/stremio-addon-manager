@@ -42,8 +42,14 @@ export default function AddonList({
   /* Stable IDs for sortable context */
   const itemIds = useMemo(() => filtered.map((a) => addonKey(a) || String(a)), [filtered]);
 
-  /* Handle drag end — compute new order */
+  /* Disable scroll-behavior: smooth during drag so dnd-kit autoscroll works instantly */
+  const handleDragStart = useCallback(() => {
+    document.documentElement.style.scrollBehavior = "auto";
+  }, []);
+
+  /* Handle drag end — compute new order and restore smooth scroll */
   const handleDragEnd = useCallback((event) => {
+    document.documentElement.style.scrollBehavior = "";
     const { active, over } = event;
     if (!over || active.id === over.id) return;
 
@@ -80,11 +86,12 @@ export default function AddonList({
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       autoScroll={{
-        acceleration: 80,
+        acceleration: 30,
         thresholds: { x: 0, y: 0.15 },
-        interval: 5,
+        interval: 10,
       }}
     >
       <SortableContext items={itemIds} strategy={verticalListSortingStrategy}>
