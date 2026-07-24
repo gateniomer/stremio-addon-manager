@@ -82,8 +82,8 @@ export default function AddonList({
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
       autoScroll={{
-        acceleration: 50,
-        thresholds: { x: 0, y: 0.25 },
+        acceleration: 80,
+        thresholds: { x: 0, y: 0.15 },
         interval: 5,
       }}
     >
