@@ -324,7 +324,7 @@ export default function App() {
     const currentKeys = new Set(addons.map(addonKey));
     const toAdd = OFFICIAL_ADDONS
       .filter((oa) => !currentKeys.has(addonKey(oa)))
-      .map((oa) => ({ transportUrl: oa.transportUrl, manifest: oa }));
+      .map((oa) => ({ transportUrl: oa.transportUrl, manifest: oa, flags: { official: true } }));
     if (toAdd.length === 0) {
       addToast("All official addons already in list", "info");
       return;
