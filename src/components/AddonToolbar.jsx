@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { IconSearch, IconPlus, IconRefresh, IconCloudUpload, IconDownload, IconUpload, IconMore, IconCheckSquare, IconStar, IconPackage } from "./Icons";
+import { addonKey } from "../utils/addon";
 
 /**
  * Toolbar with search, bulk actions, and sync.
@@ -23,8 +24,8 @@ export default function AddonToolbar({
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-  const allSelected = useMemo(() => addons.length > 0 && addons.every((a) => selected.has(a.transportUrl || a.manifest?.id || "")), [addons, selected]);
-  const selectedCount = addons.filter((a) => selected.has(a.transportUrl || a.manifest?.id || "")).length;
+  const allSelected = useMemo(() => addons.length > 0 && addons.every((a) => selected.has(addonKey(a))), [addons, selected]);
+  const selectedCount = addons.filter((a) => selected.has(addonKey(a))).length;
 
   /* Close menu on outside click */
   useEffect(() => {

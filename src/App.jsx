@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { login, register, getAddons, setAddons } from "./stremioApi";
+import { login, register, getAddons, syncAddons } from "./stremioApi";
 import { addonKey } from "./utils/addon";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import { useToast } from "./hooks/useToast";
@@ -333,7 +333,7 @@ export default function App() {
   function handleSyncConfirm() {
     const sel = addons.filter((a) => selected.has(addonKey(a)));
     setLoading(true);
-    setAddons(authKey, sel)
+    syncAddons(authKey, sel)
       .then(() => getAddons(authKey))
       .then((list) => {
         setInstalledKeys(new Set(list.map(addonKey)));

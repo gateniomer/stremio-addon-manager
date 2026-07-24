@@ -498,10 +498,8 @@
 .toolbar-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 .toolbar-btn.active { color: var(--accent-teal); }
 
-.toolbar-btn.primary { }
 .toolbar-btn.primary:hover:not(:disabled) { background: var(--bg-surface); color: var(--text-primary); }
 
-.toolbar-btn.accent { }
 .toolbar-btn.accent:hover:not(:disabled) { background: var(--bg-surface); color: var(--text-primary); }
 
 /* ── Dropdown Menu ──────────────────────────────── */
@@ -559,10 +557,6 @@
 
 /* ── Addon Card ─────────────────────────────────── */
 
-.addon-list-item {
-  position: relative;
-}
-
 .addon-card {
   display: flex;
   align-items: center;
@@ -579,11 +573,6 @@
 .addon-card:hover {
   border-color: var(--border);
   background: var(--bg-surface);
-}
-
-.addon-card.dragging {
-  opacity: 0.3;
-  border-style: dashed;
 }
 
 .addon-grip {

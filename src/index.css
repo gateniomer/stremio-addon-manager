@@ -8,21 +8,10 @@
   --bg-base: #2A2843;
   --bg-elevated: #343252;
   --bg-surface: #3E3C62;
-  --bg-active: #484572;
-  --bg-deep: #201F33;
-  --bg-darkest: #161523;
 
   /* ── Primary (Stremio Purple) ────────────────── */
   --primary: #664181;
   --primary-hover: #744992;
-  --primary-active: #8152A3;
-  --primary-light: #A970CD;
-  --primary-subtle: rgba(102, 65, 129, 0.15);
-
-  /* ── Secondary (Blue) ────────────────────────── */
-  --secondary: #3B4B81;
-  --secondary-hover: #435593;
-  --secondary-light: #576BB2;
 
   /* ── Accent Colors ───────────────────────────── */
   --accent-red: #FF7070;
@@ -31,7 +20,6 @@
   --accent-green-subtle: rgba(34, 179, 101, 0.12);
   --accent-teal: #16D998;
   --accent-gold: #FFBA19;
-  --accent-gold-subtle: rgba(255, 186, 25, 0.12);
   --accent-blue: #759DFF;
 
   /* ── Text ────────────────────────────────────── */
@@ -44,7 +32,6 @@
   /* ── Border ──────────────────────────────────── */
   --border: #484572;
   --border-subtle: rgba(72, 69, 114, 0.5);
-  --border-focus: #A970CD;
 
   /* ── Radius ──────────────────────────────────── */
   --radius-sm: 6px;
@@ -64,8 +51,6 @@
   --sp-12: 48px;
 
   /* ── Shadows ─────────────────────────────────── */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
 
   /* ── Transitions ─────────────────────────────── */

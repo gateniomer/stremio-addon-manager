@@ -42,7 +42,7 @@ export async function getAddons(authKey) {
   return result.addons;
 }
 
-export async function setAddons(authKey, addons) {
+export async function syncAddons(authKey, addons) {
   const result = await request("addonCollectionSet", { authKey, addons });
   return result;
 }

@@ -11,7 +11,7 @@ export default defineConfig({
       devOptions: {
         enabled: true
       },
-      includeAssets: ['logo.png'],
+      includeAssets: ['pwa-192x192.png'],
       manifest: {
         name: 'Stremio Addon Manager',
         short_name: 'Stremio Addon Manager',

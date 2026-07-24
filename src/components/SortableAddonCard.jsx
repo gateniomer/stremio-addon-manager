@@ -24,7 +24,6 @@ export default function SortableAddonCard({ id, addon, isSelected, isFav, isInst
         isSelected={isSelected}
         isFav={isFav}
         isInstalled={isInstalled}
-        isDragging={isDragging}
         dragHandleProps={{ ...attributes, ...listeners }}
         onToggleSelect={onToggleSelect}
         onToggleFav={onToggleFav}
