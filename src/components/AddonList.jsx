@@ -18,6 +18,7 @@ export default function AddonList({
   onToggleFav,
   onReorder,
   onOpenAddModal,
+  onOpenDetail,
 }) {
   /* dnd-kit sensors — MouseSensor for desktop, TouchSensor with long delay for mobile */
   const sensors = useSensors(
@@ -101,6 +102,7 @@ export default function AddonList({
                 isInstalled={installedKeys.has(key)}
                 onToggleSelect={() => onToggleSelect(key)}
                 onToggleFav={() => onToggleFav(addon)}
+                onOpenDetail={() => onOpenDetail(addon)}
               />
             );
           })}

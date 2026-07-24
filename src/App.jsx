@@ -13,6 +13,7 @@ import AddonList from "./components/AddonList";
 import AddAddonModal from "./components/AddAddonModal";
 import FavManagerModal from "./components/FavManagerModal";
 import SyncDialog from "./components/SyncDialog";
+import AddonDetailModal from "./components/AddonDetailModal";
 import ToastContainer from "./components/ToastContainer";
 
 import "./App.css";
@@ -48,6 +49,7 @@ export default function App() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showFavModal, setShowFavModal] = useState(false);
   const [showSyncDialog, setShowSyncDialog] = useState(false);
+  const [detailAddon, setDetailAddon] = useState(null);
 
   /* ── Toasts ──────────────────────────────────── */
   const [toasts, addToast, removeToast] = useToast();
@@ -394,6 +396,7 @@ export default function App() {
         onToggleFav={toggleFav}
         onReorder={handleReorder}
         onOpenAddModal={() => setShowAddModal(true)}
+        onOpenDetail={setDetailAddon}
       />
 
       {/* Hidden file inputs */}
@@ -427,6 +430,13 @@ export default function App() {
           loading={loading}
           onConfirm={handleSyncConfirm}
           onCancel={() => setShowSyncDialog(false)}
+        />
+      )}
+
+      {detailAddon && (
+        <AddonDetailModal
+          addon={detailAddon}
+          onClose={() => setDetailAddon(null)}
         />
       )}
 

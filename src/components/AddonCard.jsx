@@ -1,5 +1,5 @@
 import { PLACEHOLDER_IMG } from "../utils/addon";
-import { IconGrip, IconStar, IconCheck } from "./Icons";
+import { IconGrip, IconStar, IconCheck, IconInfo } from "./Icons";
 
 /**
  * Single addon card — displays logo, name, version, badges, star, checkbox.
@@ -13,6 +13,7 @@ export default function AddonCard({
   dragHandleProps,
   onToggleSelect,
   onToggleFav,
+  onOpenDetail,
 }) {
   const manifest = addon.manifest || {};
   const name = manifest.name || "Unknown";
@@ -52,26 +53,35 @@ export default function AddonCard({
         )}
       </div>
 
-      {/* Star toggle */}
-      <button
-        className={`addon-star ${isFav ? "active" : ""}`}
-        onClick={onToggleFav}
-        title={isFav ? "Remove from favorites" : "Add to favorites"}
-      >
-        <IconStar filled={isFav} />
-      </button>
+      {/* Actions */}
+      <div className="addon-actions">
+        <button
+          className={`addon-star ${isFav ? "active" : ""}`}
+          onClick={onToggleFav}
+          title={isFav ? "Remove from favorites" : "Add to favorites"}
+        >
+          <IconStar filled={isFav} />
+        </button>
 
-      {/* Selection checkbox */}
-      <label className="addon-check" onClick={(e) => e.stopPropagation()}>
-        <input
-          type="checkbox"
-          checked={isSelected}
-          onChange={onToggleSelect}
-        />
-        <span className="checkmark">
-          <IconCheck />
-        </span>
-      </label>
+        <button
+          className="addon-info-btn"
+          onClick={(e) => { e.stopPropagation(); onOpenDetail?.(); }}
+          title="View details"
+        >
+          <IconInfo />
+        </button>
+
+        <label className="addon-check" onClick={(e) => e.stopPropagation()}>
+          <input
+            type="checkbox"
+            checked={isSelected}
+            onChange={onToggleSelect}
+          />
+          <span className="checkmark">
+            <IconCheck />
+          </span>
+        </label>
+      </div>
     </div>
   );
 }

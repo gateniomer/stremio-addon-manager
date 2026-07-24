@@ -6,7 +6,7 @@ import AddonCard from "./AddonCard";
  * Wraps AddonCard with dnd-kit sortable behavior.
  * The grip handle becomes the drag activator.
  */
-export default function SortableAddonCard({ id, addon, isSelected, isFav, isInstalled, onToggleSelect, onToggleFav }) {
+export default function SortableAddonCard({ id, addon, isSelected, isFav, isInstalled, onToggleSelect, onToggleFav, onOpenDetail }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id });
 
@@ -27,6 +27,7 @@ export default function SortableAddonCard({ id, addon, isSelected, isFav, isInst
         dragHandleProps={{ ...attributes, ...listeners }}
         onToggleSelect={onToggleSelect}
         onToggleFav={onToggleFav}
+        onOpenDetail={onOpenDetail}
       />
     </div>
   );

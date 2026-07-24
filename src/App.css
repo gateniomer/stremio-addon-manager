@@ -674,25 +674,52 @@
 
 /* ── Star (Favorite) ────────────────────────────── */
 
-.addon-star {
-  flex-shrink: 0;
-  color: var(--text-disabled);
-  padding: var(--sp-1);
+.addon-actions {
   display: flex;
   align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.addon-star {
+  width: 28px;
+  height: 28px;
+  color: var(--text-disabled);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--radius-sm);
+  font-size: 1rem;
   transition: color var(--duration), transform 150ms;
 }
 
 .addon-star:hover { color: var(--accent-gold); transform: scale(1.15); }
 .addon-star.active { color: var(--accent-gold); }
 
+/* ── Info Button ─────────────────────────────────── */
+
+.addon-info-btn {
+  width: 28px;
+  height: 28px;
+  color: var(--text-disabled);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  transition: color var(--duration);
+}
+
+.addon-info-btn:hover { color: var(--text-secondary); }
+
 /* ── Checkbox ───────────────────────────────────── */
 
 .addon-check {
-  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
 
@@ -882,6 +909,98 @@
   font-size: 0.9rem;
   margin-bottom: var(--sp-2);
 }
+
+/* ── Addon Detail Modal ──────────────────────────── */
+
+.modal-detail {
+  max-width: 480px;
+  overflow: hidden;
+}
+
+.detail-body {
+  overflow-y: auto;
+  max-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.detail-hero {
+  display: flex;
+  justify-content: center;
+}
+
+.detail-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  background: var(--bg-base);
+}
+
+.detail-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.detail-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  min-width: 0;
+}
+
+.detail-field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.detail-field-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+}
+
+.detail-field-value {
+  font-size: 0.82rem;
+  color: var(--text-primary);
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+.detail-copy-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+}
+
+.detail-copy-row .detail-field-value {
+  flex: 1;
+  min-width: 0;
+}
+
+.detail-copy-btn {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  transition: color var(--duration);
+}
+
+.detail-copy-btn:hover { color: var(--text-primary); }
 
 /* ── Favorite Rows ──────────────────────────────── */
 
