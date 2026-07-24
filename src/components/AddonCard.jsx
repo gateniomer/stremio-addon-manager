@@ -81,7 +81,7 @@ export default function AddonCard({
 
         {onRemove && (
           <button
-            className="addon-icon-btn addon-remove-btn"
+            className="addon-remove-btn"
             onClick={(e) => { e.stopPropagation(); onRemove(); }}
             title="Remove"
           >

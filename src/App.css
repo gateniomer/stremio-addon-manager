@@ -547,6 +547,7 @@
   z-index: 50;
   box-shadow: var(--shadow-lg);
   padding: var(--sp-1) 0;
+  animation: fade-in-down 0.15s var(--ease);
 }
 
 .dropdown button {
@@ -595,18 +596,26 @@
   align-items: center;
   gap: var(--sp-3);
   padding: var(--sp-3) var(--sp-4);
-  background: var(--bg-elevated);
-  border: 1px solid var(--border-subtle);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
-  transition: border-color var(--duration) var(--ease), background var(--duration) var(--ease), opacity var(--duration);
   user-select: none;
   -webkit-user-select: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.2s var(--ease);
 }
 
 .addon-card:hover {
   border-color: rgba(255, 255, 255, 0.12);
-  background: linear-gradient(135deg, rgba(42, 40, 72, 0.7), rgba(52, 48, 90, 0.6));
-  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  background: var(--bg-surface);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.addon-card:active {
+  transform: scale(0.99);
 }
 
 .addon-grip {
@@ -856,18 +865,22 @@
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(12, 12, 19, 0.75);
+  background: rgba(8, 8, 16, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
   padding: var(--sp-4);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  animation: fade-in 0.15s var(--ease);
 }
 
 .modal {
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   width: 100%;
   max-width: 440px;
@@ -876,6 +889,7 @@
   flex-direction: column;
   overflow: hidden;
   box-shadow: var(--shadow-lg);
+  animation: scale-in 0.2s var(--ease);
 }
 
 .modal-sm { max-width: 380px; }
@@ -1097,76 +1111,6 @@
 
 /* ── Favorite Rows ──────────────────────────────── */
 
-.fav-row {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  padding: var(--sp-2) var(--sp-5);
-  cursor: pointer;
-}
-
-.fav-row:hover { background: var(--bg-surface); }
-
-.fav-check { accent-color: var(--accent-gold); }
-
-.fav-thumb {
-  width: 28px;
-  height: 28px;
-  border-radius: 4px;
-  object-fit: cover;
-  flex-shrink: 0;
-  background: var(--bg-base);
-}
-
-.fav-name {
-  flex: 1;
-  font-size: 0.82rem;
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.fav-manage-row {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-3);
-  padding: var(--sp-2) var(--sp-5);
-}
-
-.fav-manage-row:hover { background: var(--bg-surface); }
-
-.fav-manage-info {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-}
-
-.fav-version {
-  font-size: 0.68rem;
-  color: var(--text-disabled);
-}
-
-.fav-remove {
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  color: var(--text-disabled);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-}
-
-.fav-remove svg {
-  width: var(--icon-size);
-  height: var(--icon-size);
-}
-
-.fav-remove:hover { color: var(--accent-red); background: var(--accent-red-subtle); }
-
 .fav-add-row {
   display: flex;
   gap: var(--sp-2);
@@ -1208,7 +1152,6 @@
   font-size: 0.82rem;
   font-weight: 500;
   pointer-events: auto;
-  animation: toast-in 0.25s var(--ease), toast-out 0.3s var(--ease) 2.7s forwards;
   backdrop-filter: blur(8px);
 }
 
@@ -1240,11 +1183,6 @@
 .toast-info { background: rgba(52, 50, 82, 0.9); border: 1px solid var(--border); color: var(--text-primary); }
 .toast-success { background: rgba(22, 100, 60, 0.9); border: 1px solid rgba(34, 179, 101, 0.3); color: var(--accent-green); }
 .toast-error { background: rgba(120, 30, 40, 0.9); border: 1px solid rgba(255, 112, 112, 0.3); color: var(--accent-red); }
-
-@keyframes toast-in {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 
 @keyframes toast-out {
   from { opacity: 1; transform: translateY(0); }
@@ -1363,4 +1301,63 @@
   width: 28px;
   height: 28px;
   flex-shrink: 0;
+}
+
+/* ── Micro-animations ─────────────────────────── */
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-down {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.sortable-card {
+  animation: fade-in 0.35s var(--ease) both;
+}
+
+.btn-primary,
+.btn-danger,
+.btn-ghost,
+.btn-sm,
+.toolbar-btn,
+.addon-info-btn,
+.addon-star,
+.addon-remove-btn,
+.modal-close,
+.header-github,
+.header-menu-btn {
+  transition: transform 0.12s var(--ease), box-shadow 0.2s var(--ease), background 0.15s var(--ease), color 0.15s var(--ease), border-color 0.15s var(--ease), opacity 0.15s var(--ease);
+}
+
+.search-input,
+.modal-input,
+.account-select,
+.input-group input {
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.toolbar-btn:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.toolbar-btn:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.addon-check:hover .checkmark {
+  transform: scale(1.1);
 }

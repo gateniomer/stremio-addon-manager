@@ -120,7 +120,7 @@ export default function AddonList({
     >
       <SortableContext items={itemIds} strategy={verticalListSortingStrategy}>
         <div className="addon-list">
-          {filtered.map((addon) => {
+          {filtered.map((addon, i) => {
             const key = addonKey(addon);
             return (
               <SortableAddonCard
@@ -133,6 +133,7 @@ export default function AddonList({
                 onToggleSelect={() => onToggleSelect(key)}
                 onToggleFav={() => onToggleFav(addon)}
                 onOpenDetail={() => onOpenDetail(addon)}
+                cardIndex={i}
               />
             );
           })}
