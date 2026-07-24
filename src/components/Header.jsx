@@ -1,10 +1,26 @@
-import { IconPower, IconGitHub } from "./Icons";
+import { useState, useRef, useEffect } from "react";
+import { IconMore, IconPower, IconGitHub, IconDownload, IconUpload, IconPackage } from "./Icons";
 
 /**
- * App header — logo, title, user email, logout.
+ * App header — logo, title, user email, and overflow menu (with logout as last option).
  */
-export default function Header({ email, onLogout }) {
+export default function Header({ email, onLogout, onImport, onExport, onRestoreOfficial }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
   const initial = email ? email.charAt(0).toUpperCase() : "?";
+
+  /* Close menu on click outside */
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handler = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [menuOpen]);
+
   return (
     <header className="header">
       <div className="header-brand">
@@ -12,14 +28,53 @@ export default function Header({ email, onLogout }) {
         <h1 className="header-title">Stremio Addon Manager</h1>
       </div>
       <div className="header-user">
-        <a className="header-github" href="https://github.com/gateniomer/stremio-addon-manager" target="_blank" rel="noopener noreferrer" title="Star on GitHub">
+        <a
+          className="header-github"
+          href="https://github.com/gateniomer/stremio-addon-manager"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Star on GitHub"
+        >
           <IconGitHub />
         </a>
         <div className="header-avatar">{initial}</div>
         <span className="header-email">{email}</span>
-        <button className="header-logout" onClick={onLogout} title="Logout">
-          <IconPower />
-        </button>
+
+        <div className="header-menu-container" ref={menuRef}>
+          <button
+            className={`header-menu-btn ${menuOpen ? "active" : ""}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+            title="Menu"
+          >
+            <IconMore />
+          </button>
+          {menuOpen && (
+            <div className="dropdown header-dropdown">
+              {onImport && (
+                <button onClick={() => { onImport(); setMenuOpen(false); }}>
+                  <IconDownload /> Import
+                </button>
+              )}
+              {onExport && (
+                <button onClick={() => { onExport(); setMenuOpen(false); }}>
+                  <IconUpload /> Export
+                </button>
+              )}
+              {onRestoreOfficial && (
+                <button onClick={() => { onRestoreOfficial(); setMenuOpen(false); }}>
+                  <IconPackage /> Restore Official
+                </button>
+              )}
+              {(onImport || onExport || onRestoreOfficial) && <hr />}
+              <button
+                className="dropdown-danger"
+                onClick={() => { onLogout(); setMenuOpen(false); }}
+              >
+                <IconPower /> Logout
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );

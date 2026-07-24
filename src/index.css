@@ -50,6 +50,11 @@
   --sp-10: 40px;
   --sp-12: 48px;
 
+  /* ── Icon Sizing ─────────────────────────────── */
+  --icon-size-sm: 16px;
+  --icon-size: 20px;
+  --icon-size-lg: 22px;
+
   /* ── Shadows ─────────────────────────────────── */
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
 

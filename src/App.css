@@ -56,8 +56,9 @@
   color: var(--text-on-primary);
   font-size: 0.75rem;
   font-weight: 700;
-  line-height: 28px;
-  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
 
@@ -71,32 +72,40 @@
 }
 
 .header-github,
-.header-logout {
+.header-menu-btn {
   all: unset;
+  box-sizing: border-box;
   color: var(--text-muted);
   width: 28px;
   height: 28px;
   border-radius: var(--radius-sm);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
+  transition: color var(--duration) var(--ease), background var(--duration) var(--ease);
 }
 
 .header-github svg,
-.header-logout svg {
-  width: 18px;
-  height: 18px;
+.header-menu-btn svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  display: block;
 }
 
 .header-github:hover,
-.header-logout:hover {
+.header-menu-btn:hover,
+.header-menu-btn.active {
   color: var(--text-primary);
   background: var(--bg-surface);
 }
 
-.header-logout:hover {
+.header-menu-container {
+  position: relative;
+}
+
+.dropdown button.dropdown-danger:hover {
   color: var(--accent-red);
   background: var(--accent-red-subtle);
 }
@@ -186,6 +195,16 @@
 .btn-sm:hover:not(:disabled) { background: var(--bg-surface); color: var(--text-primary); }
 .btn-sm:disabled { opacity: 0.4; cursor: not-allowed; }
 
+.btn-primary svg,
+.btn-danger svg,
+.btn-ghost svg,
+.btn-sm svg,
+.modal-tab svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  flex-shrink: 0;
+}
+
 /* ── Login Card ─────────────────────────────────── */
 
 .login-card {
@@ -270,8 +289,8 @@
 }
 
 .login-github svg {
-  width: 16px;
-  height: 16px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 
 .login-github:hover {
@@ -291,8 +310,8 @@
   transform: translateY(-50%);
   color: var(--text-muted);
   pointer-events: none;
-  width: 16px;
-  height: 16px;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 
 .input-group input {
@@ -448,9 +467,9 @@
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-disabled);
-  width: 15px;
-  height: 15px;
   pointer-events: none;
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 
 .search-input {
@@ -488,10 +507,10 @@
 }
 
 .toolbar-btn svg {
-  width: 20px !important;
-  height: 20px !important;
+  max-width: 24px;
+  max-height: 24px;
+  display: block;
   flex-shrink: 0;
-  overflow: visible;
 }
 
 .toolbar-btn:hover:not(:disabled) { background: var(--bg-surface); color: var(--text-primary); }
@@ -536,6 +555,12 @@
   text-align: left;
 }
 
+.dropdown button svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  flex-shrink: 0;
+}
+
 .dropdown button:hover {
   background: var(--bg-surface);
   color: var(--text-primary);
@@ -577,13 +602,20 @@
 
 .addon-grip {
   flex-shrink: 0;
+  width: 28px;
+  height: 28px;
   color: var(--text-disabled);
   cursor: grab;
   display: flex;
   align-items: center;
-  padding: var(--sp-1);
+  justify-content: center;
   border-radius: var(--radius-sm);
   touch-action: none;
+}
+
+.addon-grip svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 
 .addon-grip:hover {
@@ -689,11 +721,15 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm);
-  font-size: 1rem;
-  transition: color var(--duration), transform 150ms;
+  transition: color var(--duration);
 }
 
-.addon-star:hover { color: var(--accent-gold); transform: scale(1.15); }
+.addon-star svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.addon-star:hover { color: var(--accent-gold); }
 .addon-star.active { color: var(--accent-gold); }
 
 /* ── Info Button ─────────────────────────────────── */
@@ -706,8 +742,12 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-sm);
-  font-size: 1rem;
   transition: color var(--duration);
+}
+
+.addon-info-btn svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 
 .addon-info-btn:hover { color: var(--text-secondary); }
@@ -735,6 +775,12 @@
   justify-content: center;
   color: transparent;
   transition: all var(--duration) var(--ease);
+}
+
+.checkmark svg {
+  width: 12px;
+  height: 12px;
+  stroke-width: 2.5;
 }
 
 .addon-check input:checked + .checkmark {
@@ -820,13 +866,25 @@
   gap: var(--sp-2);
 }
 
-.header-icon { color: var(--accent-gold); }
+.header-icon {
+  color: var(--accent-gold);
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+}
 
 .modal-close {
+  width: 28px;
+  height: 28px;
   color: var(--text-muted);
-  padding: var(--sp-1);
-  border-radius: var(--radius-sm);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+}
+
+.modal-close svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 
 .modal-close:hover { color: var(--text-primary); background: var(--bg-surface); }
@@ -989,15 +1047,19 @@
 
 .detail-copy-btn {
   flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
   border-radius: var(--radius-sm);
-  font-size: 0.85rem;
   transition: color var(--duration);
+}
+
+.detail-copy-btn svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 
 .detail-copy-btn:hover { color: var(--text-primary); }
@@ -1058,10 +1120,18 @@
 
 .fav-remove {
   flex-shrink: 0;
+  width: 28px;
+  height: 28px;
   color: var(--text-disabled);
-  padding: var(--sp-1);
-  border-radius: var(--radius-sm);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+}
+
+.fav-remove svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 
 .fav-remove:hover { color: var(--accent-red); background: var(--accent-red-subtle); }
@@ -1123,6 +1193,15 @@
   opacity: 0.5;
   padding: 2px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.toast-close svg {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
 }
 
 .toast-close:hover { opacity: 1; }

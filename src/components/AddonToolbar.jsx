@@ -1,9 +1,9 @@
-import { useState, useRef, useEffect, useMemo } from "react";
-import { IconSearch, IconPlus, IconRefresh, IconCloudUpload, IconDownload, IconUpload, IconMore, IconCheckSquare, IconStar, IconPackage } from "./Icons";
+import { useMemo } from "react";
+import { IconSearch, IconPlus, IconRefresh, IconCloudUpload, IconCheckSquare, IconStar } from "./Icons";
 import { addonKey } from "../utils/addon";
 
 /**
- * Toolbar with search, bulk actions, and sync.
+ * Toolbar with search, quick actions, and sync.
  */
 export default function AddonToolbar({
   addons,
@@ -16,24 +16,13 @@ export default function AddonToolbar({
   onOpenAddModal,
   onSync,
   onReload,
-  onImport,
-  onExport,
   onOpenFavManager,
-  onRestoreOfficial,
 }) {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef(null);
-
-  const allSelected = useMemo(() => addons.length > 0 && addons.every((a) => selected.has(addonKey(a))), [addons, selected]);
+  const allSelected = useMemo(
+    () => addons.length > 0 && addons.every((a) => selected.has(addonKey(a))),
+    [addons, selected]
+  );
   const selectedCount = addons.filter((a) => selected.has(addonKey(a))).length;
-
-  /* Close menu on outside click */
-  useEffect(() => {
-    if (!menuOpen) return;
-    const handler = (e) => { if (menuRef.current && !menuRef.current.contains(e.target)) setMenuOpen(false); };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [menuOpen]);
 
   return (
     <div className="toolbar">
@@ -66,27 +55,17 @@ export default function AddonToolbar({
           <button className="toolbar-btn accent" onClick={onSync} disabled={loading || selectedCount === 0} title="Sync to Stremio">
             <IconCloudUpload />
           </button>
-
-          {/* Overflow menu */}
-          <div className="toolbar-menu" ref={menuRef}>
-            <button className="toolbar-btn" onClick={() => setMenuOpen(!menuOpen)} title="More actions">
-              <IconMore />
-            </button>
-            {menuOpen && (
-              <div className="dropdown">
-                <button onClick={() => { onImport(); setMenuOpen(false); }}><IconDownload /> Import</button>
-                <button onClick={() => { onExport(); setMenuOpen(false); }}><IconUpload /> Export</button>
-                <button onClick={() => { onRestoreOfficial(); setMenuOpen(false); }}><IconPackage /> Restore Official</button>
-              </div>
-            )}
-          </div>
         </div>
 
         <div className="toolbar-right">
           <span className="toolbar-info">
             {selectedCount} of {addons.length} selected
           </span>
-          <button className={`toolbar-btn ${allSelected && addons.length > 0 ? "active" : ""}`} onClick={allSelected ? onDeselectAll : onSelectAll} title={allSelected ? "Deselect all" : "Select all"}>
+          <button
+            className={`toolbar-btn ${allSelected && addons.length > 0 ? "active" : ""}`}
+            onClick={allSelected ? onDeselectAll : onSelectAll}
+            title={allSelected ? "Deselect all" : "Select all"}
+          >
             <IconCheckSquare />
           </button>
         </div>

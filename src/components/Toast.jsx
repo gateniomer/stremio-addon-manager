@@ -8,7 +8,7 @@ export default function Toast({ toast, onDismiss }) {
     <div className={`toast toast-${toast.type}`} onClick={() => onDismiss(toast.id)}>
       <span className="toast-msg">{toast.message}</span>
       <button className="toast-close" onClick={(e) => { e.stopPropagation(); onDismiss(toast.id); }}>
-        <IconX size={14} />
+        <IconX size={16} />
       </button>
     </div>
   );

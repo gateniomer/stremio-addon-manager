@@ -367,7 +367,13 @@ export default function App() {
   /* ── Logged-in view ──────────────────────────── */
   return (
     <main className="container">
-      <Header email={loggedInEmail} onLogout={handleLogout} />
+      <Header
+        email={loggedInEmail}
+        onLogout={handleLogout}
+        onImport={() => addonFileRef.current?.click()}
+        onExport={exportAddons}
+        onRestoreOfficial={handleRestoreOfficial}
+      />
 
       <AddonToolbar
         addons={addons}
@@ -380,10 +386,7 @@ export default function App() {
         onOpenAddModal={() => setShowAddModal(true)}
         onSync={() => { if (selCount > 0) setShowSyncDialog(true); }}
         onReload={handleReload}
-        onImport={() => addonFileRef.current?.click()}
-        onExport={exportAddons}
         onOpenFavManager={() => setShowFavModal(true)}
-        onRestoreOfficial={handleRestoreOfficial}
       />
 
       <AddonList
