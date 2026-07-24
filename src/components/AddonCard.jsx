@@ -16,6 +16,7 @@ export default function AddonCard({
   onOpenDetail,
   compact,
   onRemove,
+  hideCheckbox,
 }) {
   const manifest = addon.manifest || {};
   const name = manifest.name || "Unknown";
@@ -89,6 +90,7 @@ export default function AddonCard({
           </button>
         )}
 
+        {!hideCheckbox && (
         <label className="addon-check" onClick={(e) => e.stopPropagation()}>
           <input
             type="checkbox"
@@ -99,6 +101,7 @@ export default function AddonCard({
             <IconCheck />
           </span>
         </label>
+        )}
       </div>
     </div>
   );

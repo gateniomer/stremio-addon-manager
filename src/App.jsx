@@ -49,6 +49,7 @@ export default function App() {
   const [showAddModal, setShowAddModal] = useState(false);
   const [showFavModal, setShowFavModal] = useState(false);
   const [showSyncDialog, setShowSyncDialog] = useState(false);
+  const [syncChanges, setSyncChanges] = useState({ added: [], removed: [] });
   const [detailAddon, setDetailAddon] = useState(null);
 
   /* ── Toasts ──────────────────────────────────── */
@@ -385,7 +386,20 @@ export default function App() {
         onSelectAll={selectAll}
         onDeselectAll={deselectAll}
         onOpenAddModal={() => setShowAddModal(true)}
-        onSync={() => { if (selCount > 0) setShowSyncDialog(true); }}
+        onSync={() => {
+          if (selCount > 0) {
+            const added = addons
+              .filter((a) => selected.has(addonKey(a)) && !installedKeys.has(addonKey(a)))
+              .map((a) => a.manifest?.name || "Unknown");
+            const removedKeys = [...installedKeys].filter((k) => !selected.has(k));
+            const removed = removedKeys.map((k) => {
+              const a = addons.find((x) => addonKey(x) === k);
+              return a?.manifest?.name || k;
+            });
+            setSyncChanges({ added, removed });
+            setShowSyncDialog(true);
+          }
+        }}
         onReload={handleReload}
       />
 
@@ -431,9 +445,11 @@ export default function App() {
       {showSyncDialog && (
         <SyncDialog
           count={selCount}
+          added={syncChanges.added}
+          removed={syncChanges.removed}
           loading={loading}
           onConfirm={handleSyncConfirm}
-          onCancel={() => setShowSyncDialog(false)}
+          onCancel={() => { setShowSyncDialog(false); setSyncChanges({ added: [], removed: [] }); }}
         />
       )}
 

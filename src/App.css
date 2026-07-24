@@ -960,7 +960,20 @@
   padding: var(--sp-4) var(--sp-5);
 }
 
+.modal-hint {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: var(--sp-3);
+}
+
 .modal-url {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.modal-url-row {
   display: flex;
   gap: var(--sp-2);
 }
@@ -1011,6 +1024,55 @@
 .modal-confirm p {
   font-size: 0.9rem;
   margin-bottom: var(--sp-2);
+}
+
+.sync-changes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin: var(--sp-3) 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.sync-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.sync-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+.sync-label.add { color: var(--accent-green); }
+.sync-label.remove { color: var(--accent-red); }
+
+.sync-label svg {
+  width: 14px;
+  height: 14px;
+}
+
+.sync-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1);
+}
+
+.sync-item {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  border-radius: 4px;
+  padding: 2px 7px;
+  white-space: nowrap;
 }
 
 /* ── Addon Detail Modal ──────────────────────────── */
@@ -1121,12 +1183,21 @@
 
 .fav-actions {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-5);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.fav-manage-actions {
+  display: flex;
   gap: var(--sp-2);
   padding: var(--sp-3) var(--sp-5);
   border-bottom: 1px solid var(--border-subtle);
 }
 
-.fav-actions .btn-sm { flex: 1; }
+.fav-manage-actions .btn-sm { flex: 1; }
 
 /* ── Toast ──────────────────────────────────────── */
 
@@ -1220,7 +1291,7 @@
   .modal-footer .btn-ghost { flex: 1; min-width: 0; }
 
   .fav-add-row { padding: var(--sp-3) var(--sp-3) 0; }
-  .fav-actions { padding: var(--sp-3) var(--sp-3); }
+  .fav-actions { padding: var(--sp-2) var(--sp-3); }
   .fav-add-row .btn-primary { flex-shrink: 0; }
 
   .account-row { flex-direction: column; }

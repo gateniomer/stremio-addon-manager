@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconX, IconPlus, IconStar } from "./Icons";
+import { IconX, IconPlus, IconStar, IconCheckSquare } from "./Icons";
 import { addonKey } from "../utils/addon";
 import AddonCard from "./AddonCard";
 
@@ -28,12 +28,22 @@ export default function AddAddonModal({ favorites, onAddByUrl, onAddFromFavs, on
     setSelected(new Set());
   }
 
+  const allSelected = favorites.length > 0 && favorites.every((f) => selected.has(addonKey(f)));
+
   function toggleFav(key) {
     setSelected((prev) => {
       const next = new Set(prev);
       if (next.has(key)) next.delete(key); else next.add(key);
       return next;
     });
+  }
+
+  function selectAll() {
+    setSelected(new Set(favorites.map(addonKey)));
+  }
+
+  function deselectAll() {
+    setSelected(new Set());
   }
 
   return (
@@ -55,45 +65,58 @@ export default function AddAddonModal({ favorites, onAddByUrl, onAddFromFavs, on
 
         {tab === "url" ? (
           <div className="modal-body modal-url">
-            <input
-              type="url"
-              className="modal-input"
-              placeholder="Paste addon manifest URL..."
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              onKeyDown={(e) => { if (e.key === "Enter") handleAddUrl(); }}
-              autoFocus
-            />
-            <button className="btn-primary" onClick={handleAddUrl} disabled={loading || !url.trim()}>
-              {loading ? "..." : "Add"}
-            </button>
+            <p className="modal-hint">Search online for Stremio addons and paste the manifest URL below.</p>
+            <div className="modal-url-row">
+              <input
+                type="url"
+                className="modal-input"
+                placeholder="https://example.com/manifest.json"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                onKeyDown={(e) => { if (e.key === "Enter") handleAddUrl(); }}
+                autoFocus
+              />
+              <button className="btn-primary" onClick={handleAddUrl} disabled={loading || !url.trim()}>
+                {loading ? "..." : "Add"}
+              </button>
+            </div>
           </div>
         ) : (
-          <div className="modal-body modal-fav-list">
+          <>
+            <div className="fav-actions">
+              <button className="btn-primary" onClick={handleAddFavs} disabled={selected.size === 0}>
+                <IconPlus /> Add {selected.size > 0 ? `(${selected.size})` : ""} Selected
+              </button>
+              <div className="toolbar-right">
+                <span className="toolbar-info">{selected.size} of {favorites.length} selected</span>
+                <button
+                  className={`toolbar-btn ${allSelected ? "active" : ""}`}
+                  onClick={allSelected ? deselectAll : selectAll}
+                  title={allSelected ? "Deselect all" : "Select all"}
+                >
+                  <IconCheckSquare />
+                </button>
+              </div>
+            </div>
+            <div className="modal-body modal-fav-list">
             {favorites.length === 0 ? (
               <p className="modal-empty">No favorites yet. Star addons to add them here.</p>
             ) : (
-              <>
-                {favorites.map((fav, i) => {
-                  const key = addonKey(fav);
-                  return (
-                    <AddonCard
-                      key={key || i}
-                      addon={fav}
-                      isSelected={selected.has(key)}
-                      onToggleSelect={() => toggleFav(key)}
-                      compact
-                    />
-                  );
-                })}
-                <div className="modal-footer">
-                  <button className="btn-primary" onClick={handleAddFavs} disabled={selected.size === 0}>
-                    Add {selected.size > 0 ? `(${selected.size})` : ""} Selected
-                  </button>
-                </div>
-              </>
+              favorites.map((fav, i) => {
+                const key = addonKey(fav);
+                return (
+                  <AddonCard
+                    key={key || i}
+                    addon={fav}
+                    isSelected={selected.has(key)}
+                    onToggleSelect={() => toggleFav(key)}
+                    compact
+                  />
+                );
+              })
             )}
           </div>
+          </>
         )}
       </div>
     </div>

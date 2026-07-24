@@ -10,6 +10,14 @@ export default function FavManagerModal({ favorites, onRemove, onAddByUrl, onImp
   const [url, setUrl] = useState("");
   const [addLoading, setAddLoading] = useState(false);
 
+  async   function handleRemove(key) {
+    const fav = favorites.find((f) => addonKey(f) === key);
+    const name = fav?.manifest?.name || "this addon";
+    if (window.confirm(`Remove "${name}" from favorites?`)) {
+      onRemove(key);
+    }
+  }
+
   async function handleAdd() {
     if (!url.trim()) return;
     setAddLoading(true);
@@ -45,7 +53,7 @@ export default function FavManagerModal({ favorites, onRemove, onAddByUrl, onImp
         </div>
 
         {/* Action bar */}
-        <div className="fav-actions">
+        <div className="fav-manage-actions">
           <button className="btn-sm" onClick={onImport}><IconDownload /> Import</button>
           <button className="btn-sm" onClick={onExport} disabled={favorites.length === 0}><IconUpload /> Export</button>
         </div>
@@ -61,8 +69,9 @@ export default function FavManagerModal({ favorites, onRemove, onAddByUrl, onImp
                 <AddonCard
                   key={key || i}
                   addon={fav}
-                  onRemove={() => onRemove(key)}
+                  onRemove={() => handleRemove(key)}
                   compact
+                  hideCheckbox
                 />
               );
             })
