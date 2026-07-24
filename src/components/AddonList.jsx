@@ -42,14 +42,8 @@ export default function AddonList({
   /* Stable IDs for sortable context */
   const itemIds = useMemo(() => filtered.map((a) => addonKey(a) || String(a)), [filtered]);
 
-  /* Disable scroll-behavior: smooth during drag so dnd-kit autoscroll works instantly */
-  const handleDragStart = useCallback(() => {
-    document.documentElement.style.scrollBehavior = "auto";
-  }, []);
-
-  /* Handle drag end — compute new order and restore smooth scroll */
+  /* Handle drag end — compute new order */
   const handleDragEnd = useCallback((event) => {
-    document.documentElement.style.scrollBehavior = "";
     const { active, over } = event;
     if (!over || active.id === over.id) return;
 
@@ -86,7 +80,6 @@ export default function AddonList({
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
-      onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       autoScroll={{
         acceleration: 30,
