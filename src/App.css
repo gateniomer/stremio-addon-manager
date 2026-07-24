@@ -1285,10 +1285,10 @@
 
   .modal { max-width: 100%; margin: var(--sp-2); }
   .modal-body { padding: var(--sp-3) var(--sp-4); }
-  .modal-footer { padding: var(--sp-3) var(--sp-4); flex-wrap: wrap; }
+  .modal-footer { padding: var(--sp-3) var(--sp-4); flex-direction: column-reverse; gap: var(--sp-2); }
   .modal-footer .btn-primary,
   .modal-footer .btn-danger,
-  .modal-footer .btn-ghost { flex: 1; min-width: 0; }
+  .modal-footer .btn-ghost { width: 100%; }
 
   .fav-add-row { padding: var(--sp-3) var(--sp-3) 0; }
   .fav-actions { padding: var(--sp-2) var(--sp-3); }
