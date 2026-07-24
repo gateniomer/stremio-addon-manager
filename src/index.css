@@ -29,7 +29,7 @@
   --text-on-primary: #FFFFFF;
 
   /* ── Glass ───────────────────────────────────── */
-  --glass-bg: rgba(26, 25, 46, 0.6);
+  --glass-bg: rgba(26, 25, 46, 0.85);
   --glass-border: rgba(255, 255, 255, 0.06);
   --glass-border-hover: rgba(255, 255, 255, 0.12);
   --glass-blur: 12px;
