@@ -1,5 +1,5 @@
 import { PLACEHOLDER_IMG } from "../utils/addon";
-import { IconGrip, IconStar, IconCheck, IconInfo } from "./Icons";
+import { IconGrip, IconStar, IconCheck, IconInfo, IconTrash } from "./Icons";
 
 /**
  * Single addon card — displays logo, name, version, badges, star, checkbox.
@@ -14,6 +14,8 @@ export default function AddonCard({
   onToggleSelect,
   onToggleFav,
   onOpenDetail,
+  compact,
+  onRemove,
 }) {
   const manifest = addon.manifest || {};
   const name = manifest.name || "Unknown";
@@ -23,9 +25,11 @@ export default function AddonCard({
   return (
     <div className="addon-card">
       {/* Drag handle */}
-      <span className="addon-grip" title="Drag to reorder" {...dragHandleProps}>
-        <IconGrip />
-      </span>
+      {!compact && (
+        <span className="addon-grip" title="Drag to reorder" {...dragHandleProps}>
+          <IconGrip />
+        </span>
+      )}
 
       {/* Thumbnail */}
       <img
@@ -55,21 +59,35 @@ export default function AddonCard({
 
       {/* Actions */}
       <div className="addon-actions">
-        <button
-          className={`addon-star ${isFav ? "active" : ""}`}
-          onClick={onToggleFav}
-          title={isFav ? "Remove from favorites" : "Add to favorites"}
-        >
-          <IconStar filled={isFav} />
-        </button>
+        {!compact && (
+          <button
+            className={`addon-star ${isFav ? "active" : ""}`}
+            onClick={onToggleFav}
+            title={isFav ? "Remove from favorites" : "Add to favorites"}
+          >
+            <IconStar filled={isFav} />
+          </button>
+        )}
 
-        <button
-          className="addon-info-btn"
-          onClick={(e) => { e.stopPropagation(); onOpenDetail?.(); }}
-          title="View details"
-        >
-          <IconInfo />
-        </button>
+        {!compact && (
+          <button
+            className="addon-info-btn"
+            onClick={(e) => { e.stopPropagation(); onOpenDetail?.(); }}
+            title="View details"
+          >
+            <IconInfo />
+          </button>
+        )}
+
+        {onRemove && (
+          <button
+            className="addon-icon-btn addon-remove-btn"
+            onClick={(e) => { e.stopPropagation(); onRemove(); }}
+            title="Remove"
+          >
+            <IconTrash />
+          </button>
+        )}
 
         <label className="addon-check" onClick={(e) => e.stopPropagation()}>
           <input

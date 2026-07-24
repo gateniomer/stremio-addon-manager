@@ -29,8 +29,8 @@
 }
 
 .header-logo {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: var(--radius-sm);
 }
 
@@ -429,7 +429,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--sp-2);
-  margin-bottom: var(--sp-4);
+  margin-bottom: var(--sp-2);
 }
 
 .toolbar-search {
@@ -752,6 +752,24 @@
 
 .addon-info-btn:hover { color: var(--text-secondary); }
 
+.addon-remove-btn {
+  width: 28px;
+  height: 28px;
+  color: var(--text-disabled);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: color var(--duration);
+}
+
+.addon-remove-btn svg {
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+.addon-remove-btn:hover { color: var(--accent-red); background: var(--accent-red-subtle); }
+
 /* ── Checkbox ───────────────────────────────────── */
 
 .addon-check {
@@ -937,8 +955,9 @@
 .modal-input::placeholder { color: var(--text-disabled); }
 
 .modal-fav-list {
+  display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: var(--sp-2);
   padding: var(--sp-2) 0;
   overflow-y: auto;
   max-height: 50vh;
@@ -1036,7 +1055,7 @@
 
 .detail-copy-row {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--sp-2);
 }
 
@@ -1258,4 +1277,78 @@
   .account-row .account-select { width: 100%; }
   .account-row .btn-row { display: flex; gap: var(--sp-2); }
   .account-row .btn-row .btn-sm { flex: 1; }
+}
+
+/* ── Skeleton Loading ────────────────────────── */
+
+.skeleton-card {
+  pointer-events: none;
+}
+
+.skeleton {
+  background: var(--bg-surface);
+  border-radius: var(--radius-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 100%
+  );
+  animation: skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.skeleton-grip {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.skeleton-thumb {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.skeleton-name {
+  height: 18px;
+  width: 140px;
+}
+
+.skeleton-version {
+  height: 14px;
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.skeleton-badge {
+  height: 18px;
+  width: 50px;
+  border-radius: 3px;
+}
+
+.skeleton-desc {
+  height: 14px;
+  width: 80%;
+  margin-top: 8px;
+  border: none;
+  padding: 0;
+}
+
+.skeleton-action-btn {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
 }

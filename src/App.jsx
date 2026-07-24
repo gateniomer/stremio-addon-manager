@@ -42,7 +42,7 @@ export default function App() {
   const [addons, setAddonsState] = useState([]);
   const [selected, setSelected] = useState(new Set());
   const [installedKeys, setInstalledKeys] = useState(new Set());
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(!!authKey);
   const [searchQuery, setSearchQuery] = useState("");
 
   /* ── Modal state ─────────────────────────────── */
@@ -373,20 +373,20 @@ export default function App() {
         onImport={() => addonFileRef.current?.click()}
         onExport={exportAddons}
         onRestoreOfficial={handleRestoreOfficial}
+        onOpenFavManager={() => setShowFavModal(true)}
+        favCount={favorites.length}
       />
 
       <AddonToolbar
         addons={addons}
         selected={selected}
         loading={loading}
-        favCount={favorites.length}
         onSearch={setSearchQuery}
         onSelectAll={selectAll}
         onDeselectAll={deselectAll}
         onOpenAddModal={() => setShowAddModal(true)}
         onSync={() => { if (selCount > 0) setShowSyncDialog(true); }}
         onReload={handleReload}
-        onOpenFavManager={() => setShowFavModal(true)}
       />
 
       <AddonList
@@ -395,11 +395,12 @@ export default function App() {
         favorites={favorites}
         installedKeys={installedKeys}
         searchQuery={searchQuery}
+        loading={loading}
         onToggleSelect={toggleSelect}
         onToggleFav={toggleFav}
         onReorder={handleReorder}
         onOpenAddModal={() => setShowAddModal(true)}
-        onOpenDetail={setDetailAddon}
+        onOpenDetail={(addon) => setDetailAddon(addon)}
       />
 
       {/* Hidden file inputs */}

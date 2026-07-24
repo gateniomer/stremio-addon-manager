@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { IconX, IconStar, IconDownload, IconUpload, IconTrash } from "./Icons";
-import { addonKey, PLACEHOLDER_IMG } from "../utils/addon";
+import { IconX, IconStar, IconDownload, IconUpload } from "./Icons";
+import { addonKey } from "../utils/addon";
+import AddonCard from "./AddonCard";
 
 /**
  * Favorites management modal — list, add by URL, import, export, remove.
@@ -56,18 +57,13 @@ export default function FavManagerModal({ favorites, onRemove, onAddByUrl, onImp
           ) : (
             favorites.map((fav, i) => {
               const key = addonKey(fav);
-              const m = fav.manifest || {};
               return (
-                <div key={key || i} className="fav-manage-row">
-                  <img className="fav-thumb" src={m.logo || PLACEHOLDER_IMG} alt="" onError={(e) => { e.target.src = PLACEHOLDER_IMG; }} />
-                  <div className="fav-manage-info">
-                    <span className="fav-name">{m.name || "Unknown"}</span>
-                    {m.version && <span className="fav-version">v{m.version}</span>}
-                  </div>
-                  <button className="fav-remove" onClick={() => onRemove(key)} title="Remove">
-                    <IconTrash />
-                  </button>
-                </div>
+                <AddonCard
+                  key={key || i}
+                  addon={fav}
+                  onRemove={() => onRemove(key)}
+                  compact
+                />
               );
             })
           )}

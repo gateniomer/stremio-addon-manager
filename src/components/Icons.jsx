@@ -20,6 +20,7 @@ import {
   Package,
   Copy,
   Info,
+  MoreVertical,
 } from "lucide-react";
 
 const iconProps = { size: 20, strokeWidth: 2 };
@@ -68,20 +69,7 @@ export const IconGrip = ({ size = 20, ...p }) => (
     <circle cx="15" cy="18" r="1.5" />
   </svg>
 );
-export const IconMore = ({ size = 20, ...p }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    {...p}
-  >
-    <circle cx="12" cy="5" r="1.75" />
-    <circle cx="12" cy="12" r="1.75" />
-    <circle cx="12" cy="19" r="1.75" />
-  </svg>
-);
+export const IconMore = (p) => <MoreVertical size={22} strokeWidth={2} {...p} />;
 export const IconPower = (p) => <Power {...iconProps} {...p} />;
 export const IconMail = (p) => <Mail {...iconProps} {...p} />;
 export const IconLock = (p) => <Lock {...iconProps} {...p} />;

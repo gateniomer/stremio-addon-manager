@@ -14,6 +14,7 @@ export default function AddonList({
   favorites,
   installedKeys,
   searchQuery,
+  loading,
   onToggleSelect,
   onToggleFav,
   onReorder,
@@ -54,6 +55,35 @@ export default function AddonList({
 
     onReorder(oldIndex, newIndex);
   }, [addons, onReorder]);
+
+  /* Loading */
+  if (loading) {
+    return (
+      <div className="addon-list">
+        {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+          <div key={i} className="addon-card skeleton-card">
+            <span className="skeleton skeleton-grip" />
+            <span className="skeleton skeleton-thumb" />
+            <div className="addon-info">
+              <div className="addon-name-row">
+                <span className="skeleton skeleton-name" />
+                <span className="skeleton skeleton-version" />
+              </div>
+              <div className="addon-badges">
+                <span className="skeleton skeleton-badge" />
+              </div>
+              <p className="skeleton skeleton-desc" />
+            </div>
+            <div className="addon-actions">
+              <span className="skeleton skeleton-action-btn" />
+              <span className="skeleton skeleton-action-btn" />
+              <span className="skeleton skeleton-action-btn" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   /* Empty state */
   if (addons.length === 0) {

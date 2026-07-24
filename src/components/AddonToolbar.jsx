@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { IconSearch, IconPlus, IconRefresh, IconCloudUpload, IconCheckSquare, IconStar } from "./Icons";
+import { IconSearch, IconPlus, IconRefresh, IconCloudUpload, IconCheckSquare } from "./Icons";
 import { addonKey } from "../utils/addon";
 
 /**
@@ -9,14 +9,12 @@ export default function AddonToolbar({
   addons,
   selected,
   loading,
-  favCount,
   onSearch,
   onSelectAll,
   onDeselectAll,
   onOpenAddModal,
   onSync,
   onReload,
-  onOpenFavManager,
 }) {
   const allSelected = useMemo(
     () => addons.length > 0 && addons.every((a) => selected.has(addonKey(a))),
@@ -42,10 +40,6 @@ export default function AddonToolbar({
         <div className="toolbar-actions">
           <button className="toolbar-btn primary" onClick={onOpenAddModal} title="Add addon">
             <IconPlus />
-          </button>
-
-          <button className="toolbar-btn" onClick={onOpenFavManager} title={`Favorites (${favCount})`}>
-            <IconStar />
           </button>
 
           <button className="toolbar-btn" onClick={onReload} disabled={loading} title="Reload from server">

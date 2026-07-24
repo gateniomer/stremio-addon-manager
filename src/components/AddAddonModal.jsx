@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { IconX, IconPlus, IconStar } from "./Icons";
-import { addonKey, PLACEHOLDER_IMG } from "../utils/addon";
+import { addonKey } from "../utils/addon";
+import AddonCard from "./AddonCard";
 
 /**
  * Modal to add addons: by URL or from favorites.
@@ -48,7 +49,7 @@ export default function AddAddonModal({ favorites, onAddByUrl, onAddFromFavs, on
             <IconPlus /> By URL
           </button>
           <button className={`modal-tab ${tab === "favs" ? "active" : ""}`} onClick={() => setTab("favs")}>
-            <IconStar /> From Favorites ({favorites.length})
+            <IconStar /> Favorites
           </button>
         </div>
 
@@ -75,18 +76,14 @@ export default function AddAddonModal({ favorites, onAddByUrl, onAddFromFavs, on
               <>
                 {favorites.map((fav, i) => {
                   const key = addonKey(fav);
-                  const m = fav.manifest || {};
                   return (
-                    <label key={key || i} className="fav-row">
-                      <input
-                        type="checkbox"
-                        className="fav-check"
-                        checked={selected.has(key)}
-                        onChange={() => toggleFav(key)}
-                      />
-                      <img className="fav-thumb" src={m.logo || PLACEHOLDER_IMG} alt="" onError={(e) => { e.target.src = PLACEHOLDER_IMG; }} />
-                      <span className="fav-name">{m.name || "Unknown"}</span>
-                    </label>
+                    <AddonCard
+                      key={key || i}
+                      addon={fav}
+                      isSelected={selected.has(key)}
+                      onToggleSelect={() => toggleFav(key)}
+                      compact
+                    />
                   );
                 })}
                 <div className="modal-footer">

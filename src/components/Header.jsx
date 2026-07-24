@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { IconMore, IconPower, IconGitHub, IconDownload, IconUpload, IconPackage } from "./Icons";
+import { IconMore, IconPower, IconGitHub, IconDownload, IconUpload, IconPackage, IconStar } from "./Icons";
 
 /**
  * App header — logo, title, user email, and overflow menu (with logout as last option).
  */
-export default function Header({ email, onLogout, onImport, onExport, onRestoreOfficial }) {
+export default function Header({ email, onLogout, onImport, onExport, onRestoreOfficial, onOpenFavManager, favCount }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const initial = email ? email.charAt(0).toUpperCase() : "?";
@@ -65,7 +65,12 @@ export default function Header({ email, onLogout, onImport, onExport, onRestoreO
                   <IconPackage /> Restore Official
                 </button>
               )}
-              {(onImport || onExport || onRestoreOfficial) && <hr />}
+              {onOpenFavManager && (
+                <button onClick={() => { onOpenFavManager(); setMenuOpen(false); }}>
+                  <IconStar /> Favorites{favCount != null ? ` (${favCount})` : ""}
+                </button>
+              )}
+              {(onImport || onExport || onRestoreOfficial || onOpenFavManager) && <hr />}
               <button
                 className="dropdown-danger"
                 onClick={() => { onLogout(); setMenuOpen(false); }}
