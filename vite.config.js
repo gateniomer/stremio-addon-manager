@@ -14,10 +14,10 @@ export default defineConfig({
       includeAssets: ['logo.png'],
       manifest: {
         name: 'Stremio Addon Manager',
-        short_name: 'Stremio AM',
+        short_name: 'Stremio Addon Manager',
         description: 'Manage your Stremio addon collection — import, export, and sync addons across accounts.',
-        theme_color: '#0f3460',
-        background_color: '#0a1628',
+        theme_color: '#2A2843',
+        background_color: '#2A2843',
         display: 'standalone',
         scope: './',
         start_url: './',

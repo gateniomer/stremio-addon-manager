@@ -1,3 +1,141 @@
-body {
+/*
+ * Stremio Addon Manager — Design Tokens
+ * Colors sourced from official Stremio/stremio-colors palette
+ */
+
+:root {
+  /* ── Background ──────────────────────────────── */
+  --bg-base: #2A2843;
+  --bg-elevated: #343252;
+  --bg-surface: #3E3C62;
+  --bg-active: #484572;
+  --bg-deep: #201F33;
+  --bg-darkest: #161523;
+
+  /* ── Primary (Stremio Purple) ────────────────── */
+  --primary: #664181;
+  --primary-hover: #744992;
+  --primary-active: #8152A3;
+  --primary-light: #A970CD;
+  --primary-subtle: rgba(102, 65, 129, 0.15);
+
+  /* ── Secondary (Blue) ────────────────────────── */
+  --secondary: #3B4B81;
+  --secondary-hover: #435593;
+  --secondary-light: #576BB2;
+
+  /* ── Accent Colors ───────────────────────────── */
+  --accent-red: #FF7070;
+  --accent-red-subtle: rgba(255, 112, 112, 0.12);
+  --accent-green: #22B365;
+  --accent-green-subtle: rgba(34, 179, 101, 0.12);
+  --accent-teal: #16D998;
+  --accent-gold: #FFBA19;
+  --accent-gold-subtle: rgba(255, 186, 25, 0.12);
+  --accent-blue: #759DFF;
+
+  /* ── Text ────────────────────────────────────── */
+  --text-primary: #F2F2F2;
+  --text-secondary: #BFBFBF;
+  --text-muted: #808080;
+  --text-disabled: #5C5992;
+  --text-on-primary: #FFFFFF;
+
+  /* ── Border ──────────────────────────────────── */
+  --border: #484572;
+  --border-subtle: rgba(72, 69, 114, 0.5);
+  --border-focus: #A970CD;
+
+  /* ── Radius ──────────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* ── Spacing ─────────────────────────────────── */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+
+  /* ── Shadows ─────────────────────────────────── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+
+  /* ── Transitions ─────────────────────────────── */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration: 150ms;
+}
+
+/*
+ * Global Reset
+ */
+*, *::before, *::after {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  background: var(--bg-base);
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--accent-teal);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input, button, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }
