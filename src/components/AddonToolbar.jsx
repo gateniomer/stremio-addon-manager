@@ -1,9 +1,8 @@
-import { useState, useRef, useEffect } from "react";
-import { IconSearch, IconPlus, IconRefresh, IconSync, IconDownload, IconUpload, IconMore, IconCheck, IconX, IconStar } from "./Icons";
+import { useState, useRef, useEffect, useMemo } from "react";
+import { IconSearch, IconPlus, IconRefresh, IconCloudUpload, IconDownload, IconUpload, IconMore, IconCheckSquare, IconStar, IconPackage } from "./Icons";
 
 /**
  * Toolbar with search, bulk actions, and sync.
- * Collapses overflow actions into a menu on mobile.
  */
 export default function AddonToolbar({
   addons,
@@ -19,9 +18,12 @@ export default function AddonToolbar({
   onImport,
   onExport,
   onOpenFavManager,
+  onRestoreOfficial,
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
+
+  const allSelected = useMemo(() => addons.length > 0 && addons.every((a) => selected.has(a.transportUrl || a.manifest?.id || "")), [addons, selected]);
   const selectedCount = addons.filter((a) => selected.has(a.transportUrl || a.manifest?.id || "")).length;
 
   /* Close menu on outside click */
@@ -34,7 +36,7 @@ export default function AddonToolbar({
 
   return (
     <div className="toolbar">
-      {/* Search */}
+      {/* Row 1: Search */}
       <div className="toolbar-search">
         <IconSearch className="search-icon" />
         <input
@@ -45,36 +47,47 @@ export default function AddonToolbar({
         />
       </div>
 
-      <div className="toolbar-info">
-        {selectedCount} of {addons.length} selected
-      </div>
-
-      <div className="toolbar-actions">
-        <button className="toolbar-btn primary" onClick={onOpenAddModal} title="Add addon">
-          <IconPlus /> <span className="btn-label">Add</span>
-        </button>
-
-        <button className="toolbar-btn accent" onClick={onSync} disabled={loading || selectedCount === 0} title="Sync to Stremio">
-          <IconSync className={loading ? "spin" : ""} /> <span className="btn-label">Sync</span>
-        </button>
-
-        {/* Overflow menu (desktop: always visible, mobile: hamburger) */}
-        <div className="toolbar-menu" ref={menuRef}>
-          <button className="toolbar-btn" onClick={() => setMenuOpen(!menuOpen)} title="More actions">
-            <IconMore />
+      {/* Row 2: Selection info + actions */}
+      <div className="toolbar-row">
+        <div className="toolbar-actions">
+          <button className="toolbar-btn primary" onClick={onOpenAddModal} title="Add addon">
+            <IconPlus />
           </button>
-          {menuOpen && (
-            <div className="dropdown">
-              <button onClick={() => { onSelectAll(); setMenuOpen(false); }}><IconCheck /> Select All</button>
-              <button onClick={() => { onDeselectAll(); setMenuOpen(false); }}><IconX /> Deselect All</button>
-              <hr />
-              <button onClick={() => { onOpenFavManager(); setMenuOpen(false); }}><IconStar /> Favorites ({favCount})</button>
-              <button onClick={() => { onReload(); setMenuOpen(false); }}><IconRefresh /> Reload</button>
-              <hr />
-              <button onClick={() => { onImport(); setMenuOpen(false); }}><IconDownload /> Import</button>
-              <button onClick={() => { onExport(); setMenuOpen(false); }}><IconUpload /> Export</button>
-            </div>
-          )}
+
+          <button className="toolbar-btn" onClick={onOpenFavManager} title={`Favorites (${favCount})`}>
+            <IconStar />
+          </button>
+
+          <button className="toolbar-btn" onClick={onReload} disabled={loading} title="Reload from server">
+            <IconRefresh className={loading ? "spin" : ""} />
+          </button>
+
+          <button className="toolbar-btn accent" onClick={onSync} disabled={loading || selectedCount === 0} title="Sync to Stremio">
+            <IconCloudUpload />
+          </button>
+
+          {/* Overflow menu */}
+          <div className="toolbar-menu" ref={menuRef}>
+            <button className="toolbar-btn" onClick={() => setMenuOpen(!menuOpen)} title="More actions">
+              <IconMore />
+            </button>
+            {menuOpen && (
+              <div className="dropdown">
+                <button onClick={() => { onImport(); setMenuOpen(false); }}><IconDownload /> Import</button>
+                <button onClick={() => { onExport(); setMenuOpen(false); }}><IconUpload /> Export</button>
+                <button onClick={() => { onRestoreOfficial(); setMenuOpen(false); }}><IconPackage /> Restore Official</button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="toolbar-right">
+          <span className="toolbar-info">
+            {selectedCount} of {addons.length} selected
+          </span>
+          <button className={`toolbar-btn ${allSelected && addons.length > 0 ? "active" : ""}`} onClick={allSelected ? onDeselectAll : onSelectAll} title={allSelected ? "Deselect all" : "Select all"}>
+            <IconCheckSquare />
+          </button>
         </div>
       </div>
     </div>

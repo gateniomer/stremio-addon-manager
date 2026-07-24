@@ -81,6 +81,11 @@ export default function AddonList({
       sensors={sensors}
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
+      autoScroll={{
+        acceleration: 50,
+        thresholds: { x: 0, y: 0.25 },
+        interval: 5,
+      }}
     >
       <SortableContext items={itemIds} strategy={verticalListSortingStrategy}>
         <div className="addon-list">

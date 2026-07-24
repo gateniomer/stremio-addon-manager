@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconMail, IconLock } from "./Icons";
+import { IconMail, IconLock, IconGitHub } from "./Icons";
 
 /**
  * Login / Register form with mode toggle.
@@ -20,6 +20,7 @@ export default function LoginForm({ loading, onSubmit }) {
       <div className="login-brand">
         <img className="login-logo" src="pwa-192x192.png" alt="" />
         <h2>Stremio Addon Manager</h2>
+        <p className="login-subtitle">Sync and manage your Stremio addons</p>
       </div>
 
       <div className="mode-toggle">
@@ -84,6 +85,10 @@ export default function LoginForm({ loading, onSubmit }) {
           {loading ? "Working..." : mode === "login" ? "Sign In" : "Create Account"}
         </button>
       </form>
+
+      <a className="login-github" href="https://github.com/gateniomer/stremio-addon-manager" target="_blank" rel="noopener noreferrer">
+        <IconGitHub /> View on GitHub
+      </a>
     </div>
   );
 }

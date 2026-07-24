@@ -29,22 +29,23 @@
 }
 
 .header-logo {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--radius-sm);
 }
 
 .header-title {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
 .header-user {
   display: flex;
   align-items: center;
-  gap: var(--sp-2);
+  gap: var(--sp-1);
 }
 
 .header-avatar {
@@ -53,11 +54,11 @@
   border-radius: var(--radius-full);
   background: var(--primary);
   color: var(--text-on-primary);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  line-height: 28px;
+  text-align: center;
+  flex-shrink: 0;
 }
 
 .header-email {
@@ -73,14 +74,20 @@
 .header-logout {
   all: unset;
   color: var(--text-muted);
-  padding: var(--sp-1);
+  width: 28px;
+  height: 28px;
   border-radius: var(--radius-sm);
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.25rem;
   cursor: pointer;
-  line-height: 1;
+  flex-shrink: 0;
+}
+
+.header-github svg,
+.header-logout svg {
+  width: 18px;
+  height: 18px;
 }
 
 .header-github:hover,
@@ -185,7 +192,7 @@
   background: var(--bg-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--sp-8) var(--sp-6);
+  padding: var(--sp-8) var(--sp-6) var(--sp-5);
   max-width: 380px;
   margin: var(--sp-12) auto var(--sp-6);
 }
@@ -206,6 +213,12 @@
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--text-primary);
+}
+
+.login-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: var(--sp-1);
 }
 
 .mode-toggle {
@@ -240,6 +253,29 @@
   display: flex;
   flex-direction: column;
   gap: var(--sp-3);
+}
+
+.login-github {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color var(--duration) var(--ease);
+}
+
+.login-github svg {
+  width: 16px;
+  height: 16px;
+}
+
+.login-github:hover {
+  color: var(--text-primary);
 }
 
 /* ── Input Groups ───────────────────────────────── */
@@ -372,16 +408,38 @@
 
 .toolbar {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--sp-2);
   margin-bottom: var(--sp-4);
-  flex-wrap: wrap;
 }
 
 .toolbar-search {
-  flex: 1;
-  min-width: 180px;
+  width: 100%;
   position: relative;
+}
+
+.toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toolbar-info {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.toolbar-actions {
+  display: flex;
+  gap: 2px;
+  align-items: center;
 }
 
 .search-icon {
@@ -411,45 +469,40 @@
 .search-input:focus { border-color: var(--primary); }
 .search-input::placeholder { color: var(--text-disabled); }
 
-.toolbar-info {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  white-space: nowrap;
-  padding: 0 var(--sp-2);
-}
-
-.toolbar-actions {
-  display: flex;
-  gap: var(--sp-2);
-  align-items: center;
-}
-
 .toolbar-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--sp-1);
+  width: 36px;
   height: 36px;
-  padding: 0 var(--sp-3);
-  font-size: 0.82rem;
-  font-weight: 600;
-  background: var(--bg-elevated);
-  color: var(--text-secondary);
-  border: 1px solid var(--border-subtle);
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  white-space: nowrap;
   transition: all var(--duration) var(--ease);
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-.toolbar-btn:hover:not(:disabled) { background: var(--bg-surface); color: var(--text-primary); border-color: var(--border); }
-.toolbar-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.toolbar-btn svg {
+  width: 20px !important;
+  height: 20px !important;
+  flex-shrink: 0;
+  overflow: visible;
+}
 
-.toolbar-btn.primary { background: var(--primary); color: var(--text-on-primary); border-color: var(--primary); }
-.toolbar-btn.primary:hover:not(:disabled) { background: var(--primary-hover); }
+.toolbar-btn:hover:not(:disabled) { background: var(--bg-surface); color: var(--text-primary); }
+.toolbar-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.toolbar-btn.active { color: var(--accent-teal); }
 
-.toolbar-btn.accent { background: var(--secondary); color: var(--text-on-primary); border-color: var(--secondary); }
-.toolbar-btn.accent:hover:not(:disabled) { background: var(--secondary-hover); }
+.toolbar-btn.primary { }
+.toolbar-btn.primary:hover:not(:disabled) { background: var(--bg-surface); color: var(--text-primary); }
+
+.toolbar-btn.accent { }
+.toolbar-btn.accent:hover:not(:disabled) { background: var(--bg-surface); color: var(--text-primary); }
 
 /* ── Dropdown Menu ──────────────────────────────── */
 
@@ -572,19 +625,24 @@
   display: flex;
   align-items: center;
   gap: var(--sp-2);
-  flex-wrap: wrap;
+  min-width: 0;
 }
 
 .addon-name {
   font-size: 0.88rem;
   font-weight: 600;
   color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
 .addon-version {
   font-size: 0.68rem;
   color: var(--text-disabled);
   font-weight: 400;
+  flex-shrink: 0;
 }
 
 .addon-desc {
@@ -601,6 +659,14 @@
 
 /* ── Badges ─────────────────────────────────────── */
 
+.addon-badges {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
 .badge {
   font-size: 0.55rem;
   font-weight: 700;
@@ -614,6 +680,8 @@
 .badge-official { color: var(--accent-green); background: var(--accent-green-subtle); }
 .badge-user { color: var(--accent-blue); background: rgba(117, 157, 255, 0.1); }
 .badge-installed { color: var(--accent-teal); background: rgba(22, 217, 152, 0.1); }
+.badge-deleting { color: var(--accent-red); background: rgba(255, 112, 112, 0.1); }
+.badge-installing { color: var(--accent-gold); background: rgba(255, 186, 25, 0.12); }
 
 /* ── Star (Favorite) ────────────────────────────── */
 
@@ -980,12 +1048,8 @@
   .header-title { font-size: 0.9rem; }
   .header-email { display: none; }
 
-  .toolbar { flex-direction: column; align-items: stretch; }
-  .toolbar-search { min-width: 0; }
-  .toolbar-info { text-align: center; font-size: 0.72rem; }
-  .toolbar-actions { justify-content: center; }
-
-  .btn-label { display: none; }
+  .toolbar-row { flex-wrap: wrap; gap: var(--sp-2); }
+  .toolbar-info { font-size: 0.72rem; }
 
   .addon-card { padding: var(--sp-2) var(--sp-3); gap: var(--sp-2); }
   .addon-thumb { width: 34px; height: 34px; }

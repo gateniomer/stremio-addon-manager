@@ -6,7 +6,7 @@
 
 **The ultimate tool to manage, organize, and sync your Stremio addons.**
 
-[🚀 **Live App**](http://gateniomer.github.io/stremio-addon-manager) · [⭐ **Star on GitHub**](https://github.com/gateniomer/stremio-addon-manager)
+[🚀 **Live App**](http://gateniomer.github.io/stremio-addon-manager)
 
 </div>
 
@@ -25,7 +25,7 @@
 
 ## ⚠️ Important
 
-> This app runs **entirely in your browser** and communicates directly with the [Stremio API](https://stremio.github.io/stremio-addon-docs/). **No data is stored on any server** — your credentials and addon list never leave your device.
+> This app runs **entirely in your browser** and communicates directly with the [Stremio API](https://streamio.com/api/docs). **No data is stored on any server** — your credentials and addon list never leave your device.
 
 ## 🚀 Getting Started
 

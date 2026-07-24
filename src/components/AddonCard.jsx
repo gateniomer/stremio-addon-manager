@@ -38,10 +38,14 @@ export default function AddonCard({
       <div className="addon-info">
         <div className="addon-name-row">
           <span className="addon-name">{name}</span>
+          {version && <span className="addon-version">v{version}</span>}
+        </div>
+        <div className="addon-badges">
           {official && <span className="badge badge-official">Official</span>}
           {!official && <span className="badge badge-user">User</span>}
-          {isInstalled && <span className="badge badge-installed">Installed</span>}
-          {version && <span className="addon-version">v{version}</span>}
+          {isInstalled && isSelected && <span className="badge badge-installed">Installed</span>}
+          {isInstalled && !isSelected && <span className="badge badge-deleting">Deleting</span>}
+          {!isInstalled && isSelected && <span className="badge badge-installing">Installing</span>}
         </div>
         {manifest.description && (
           <p className="addon-desc">{manifest.description}</p>

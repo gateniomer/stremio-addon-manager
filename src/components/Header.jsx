@@ -9,7 +9,7 @@ export default function Header({ email, onLogout }) {
     <header className="header">
       <div className="header-brand">
         <img className="header-logo" src="pwa-64x64.png" alt="" />
-        <h1 className="header-title">Addon Manager</h1>
+        <h1 className="header-title">Stremio Addon Manager</h1>
       </div>
       <div className="header-user">
         <a className="header-github" href="https://github.com/gateniomer/stremio-addon-manager" target="_blank" rel="noopener noreferrer" title="Star on GitHub">

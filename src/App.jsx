@@ -20,6 +20,17 @@ import "./App.css";
 /* ─────────────────────────────────────────────────
  * App root — manages auth, addons, favorites.
  * ───────────────────────────────────────────────── */
+
+/* Official Stremio addons list */
+const OFFICIAL_ADDONS = [
+  { id: "com.linvo.cinemeta", name: "Cinemeta", version: "4.2.3", description: "Cinemeta - The official Stremio addon for movies, series and anime catalogs", types: ["movie", "series", "anime"], catalogs: [{ type: "movie", id: "top", name: "Top" }, { type: "movie", id: "trending", name: "Trending" }, { type: "movie", id: "top_rated", name: "Top Rated" }, { type: "movie", id: "popular", name: "Popular" }, { type: "series", id: "top", name: "Top" }, { type: "series", id: "trending", name: "Trending" }, { type: "series", id: "top_rated", name: "Top Rated" }, { type: "series", id: "popular", name: "Popular" }], resources: ["catalog"], idPrefixes: ["tt"], logo: "https://images.cinemeta.strem.io/cinemeta.png", background: "https://stremio-images.s3.us-east-1.amazonaws.com/cinemeta.jpg", behaviorHints: { configurable: true, configurationRequired: false }, transportUrl: "https://v3-cinemeta.strem.io/manifest.json" },
+  { id: "com.linvo.stremiochannels", name: "YouTube", version: "1.3.0", description: "YouTube Channels addon for Stremio", types: ["channel"], catalogs: [{ type: "channel", id: "trending", name: "Trending" }], resources: ["catalog"], logo: "https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg", background: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7", transportUrl: "https://v3-channels.strem.io/manifest.json" },
+  { id: "org.stremio.watchhub", name: "WatchHub", version: "2.0.0", description: "WatchHub - Add links to popular streaming services", types: ["movie", "series"], resources: ["stream"], idPrefixes: ["tt"], logo: "https://watchhub.com/images/watchhub-logo.png", background: "https://images.unsplash.com/photo-1574375927938-d5a98e8d7e28", transportUrl: "https://watchhub.strem.io/manifest.json" },
+  { id: "org.stremio.pubdomainmovies", name: "Public Domain Movies", version: "1.0.0", description: "A collection of public domain movies", types: ["movie"], resources: ["catalog", "stream"], catalogs: [{ type: "movie", id: "most-popular", name: "Most Popular" }], idPrefixes: ["tt"], logo: "https://images.stremio.com/publicdomainmovies.png", transportUrl: "https://caching.stremio.net/publicdomainmovies.now.sh/manifest.json" },
+  { id: "org.stremio.opensubtitlesv3", name: "OpenSubtitles v3", version: "1.0.4", description: "OpenSubtitles v3 — the largest OpenSubtitles community", types: ["movie", "series"], resources: ["subtitles"], idPrefixes: ["tt"], logo: "https://images.stremio.com/opensubtitles.jpg", transportUrl: "https://opensubtitles-v3.strem.io/manifest.json" },
+  { id: "org.stremio.opensubtitles", name: "OpenSubtitles", version: "1.0.0", description: "OpenSubtitles", types: ["movie", "series"], resources: ["subtitles"], idPrefixes: ["tt"], logo: "https://images.stremio.com/opensubtitles.jpg", transportUrl: "https://opensubtitles.strem.io/stremio/v1" },
+];
+
 export default function App() {
   /* ── Persisted state ─────────────────────────── */
   const [accounts, setAccounts] = useLocalStorage("stremio_accounts", []);
@@ -303,13 +314,30 @@ export default function App() {
     addToast(`Exported ${sel.length} addons`, "success");
   }
 
+  /* ── Restore official addons ─────────────────── */
+  function handleRestoreOfficial() {
+    const currentKeys = new Set(addons.map(addonKey));
+    const toAdd = OFFICIAL_ADDONS
+      .filter((oa) => !currentKeys.has(addonKey(oa)))
+      .map((oa) => ({ transportUrl: oa.transportUrl, manifest: oa }));
+    if (toAdd.length === 0) {
+      addToast("All official addons already in list", "info");
+      return;
+    }
+    setAddonsState((prev) => [...prev, ...toAdd]);
+    setSelected((prev) => new Set([...prev, ...toAdd.map(addonKey)]));
+    addToast(`Added ${toAdd.length} official addon(s)`, "success");
+  }
+
   /* ── Sync ────────────────────────────────────── */
   function handleSyncConfirm() {
     const sel = addons.filter((a) => selected.has(addonKey(a)));
     setLoading(true);
     setAddons(authKey, sel)
-      .then(() => {
-        setInstalledKeys(new Set(sel.map(addonKey)));
+      .then(() => getAddons(authKey))
+      .then((list) => {
+        setInstalledKeys(new Set(list.map(addonKey)));
+        loadAddons(list);
         addToast(`Synced ${sel.length} addons`, "success");
         setShowSyncDialog(false);
       })
@@ -353,6 +381,7 @@ export default function App() {
         onImport={() => addonFileRef.current?.click()}
         onExport={exportAddons}
         onOpenFavManager={() => setShowFavModal(true)}
+        onRestoreOfficial={handleRestoreOfficial}
       />
 
       <AddonList
