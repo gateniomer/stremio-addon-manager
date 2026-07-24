@@ -6,9 +6,7 @@
 
 **The ultimate tool to manage, organize, and sync your Stremio addons.**
 
-[![PWA](https://img.shields.io/badge/PWA-Ready-5A0FC8?style=flat&logo=pwa)]()
-[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat&logo=react)]()
-[![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=flat&logo=vite)]()
+[🚀 **Live App**](http://gateniomer.github.io/stremio-addon-manager) · [⭐ **Star on GitHub**](https://github.com/gateniomer/stremio-addon-manager)
 
 </div>
 
@@ -25,6 +23,10 @@
 - 🌙 **Dark Theme** — Beautiful dark UI inspired by Stremio's design language
 - 📲 **Mobile Friendly** — Fully responsive, works great on phones and tablets
 
+## ⚠️ Important
+
+> This app runs **entirely in your browser** and communicates directly with the [Stremio API](https://stremio.github.io/stremio-addon-docs/). **No data is stored on any server** — your credentials and addon list never leave your device.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -35,7 +37,7 @@
 ### Install
 
 ```bash
-git clone https://github.com/your-username/stremio-addon-manager.git
+git clone https://github.com/gateniomer/stremio-addon-manager.git
 cd stremio-addon-manager
 npm install
 ```
@@ -52,61 +54,40 @@ npm run dev
 npm run build
 ```
 
-### Preview Production Build
-
-```bash
-npm run preview
-```
-
-## 🌐 Deploy to GitHub Pages
-
-The project includes a GitHub Actions workflow that automatically deploys to GitHub Pages on push to `main`.
-
-1. Go to **Settings → Pages**
-2. Set **Source** to **GitHub Actions**
-3. Push to `main` — your app is live! 🎉
-
-## 🛠️ Tech Stack
-
-| Technology | Purpose |
-|---|---|
-| ⚛️ React 19 | UI framework |
-| ⚡ Vite 8 | Build tool & dev server |
-| 🎯 @dnd-kit | Drag & drop reordering |
-| 💻 vite-plugin-pwa | Progressive Web App |
-| 🎨 Custom CSS | Stremio-inspired design system |
-
-## 📂 Project Structure
-
-```
-src/
-├── components/          # UI components
-│   ├── Header.jsx       # App header with user info
-│   ├── LoginForm.jsx    # Login / Register form
-│   ├── SavedAccounts.jsx # Quick account switcher
-│   ├── AddonList.jsx    # Sortable addon list
-│   ├── AddonCard.jsx    # Individual addon card
-│   ├── AddonToolbar.jsx # Search, sync & actions
-│   ├── AddAddonModal.jsx # Add by URL or favorites
-│   ├── FavManagerModal.jsx # Manage favorites
-│   ├── SyncDialog.jsx   # Sync confirmation
-│   ├── Toast.jsx        # Toast notifications
-│   └── Icons.jsx        # SVG icon components
-├── hooks/
-│   ├── useLocalStorage.js
-│   └── useToast.js
-├── utils/
-│   └── addon.js         # Addon utility functions
-├── stremioApi.js        # Stremio API client
-├── App.jsx              # Main app shell
-├── App.css              # All component styles
-├── index.css            # Design tokens & globals
-└── main.jsx             # Entry point
-```
-
 ## 📄 License
 
-MIT
+This project is licensed under the **MIT License**.
+
+```
+MIT License
+
+Copyright (c) 2026 Stremio Addon Manager Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### What does this mean?
+
+- ✅ **Free to use** — personal or commercial
+- ✅ **Modify** — fork, adapt, and improve
+- ✅ **Distribute** — share with others
+- ✅ **No warranty** — the software is provided as-is, use at your own risk
 
 ---
 

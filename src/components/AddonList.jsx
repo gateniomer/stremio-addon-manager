@@ -1,5 +1,5 @@
 import { useMemo, useCallback } from "react";
-import { DndContext, closestCenter, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { DndContext, closestCenter, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import SortableAddonCard from "./SortableAddonCard";
 import { addonKey } from "../utils/addon";
@@ -19,10 +19,10 @@ export default function AddonList({
   onReorder,
   onOpenAddModal,
 }) {
-  /* dnd-kit sensors — touch needs a delay to not block scrolling */
+  /* dnd-kit sensors — MouseSensor for desktop, TouchSensor with long delay for mobile */
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
-    useSensor(TouchSensor, { activationConstraint: { delay: 150, tolerance: 5 } }),
+    useSensor(MouseSensor, { activationConstraint: { distance: 4 } }),
+    useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 8 } }),
   );
 
   /* Filter by search query */

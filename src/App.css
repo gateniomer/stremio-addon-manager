@@ -69,12 +69,24 @@
   white-space: nowrap;
 }
 
+.header-github,
 .header-logout {
+  all: unset;
   color: var(--text-muted);
   padding: var(--sp-1);
   border-radius: var(--radius-sm);
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.header-github:hover,
+.header-logout:hover {
+  color: var(--text-primary);
+  background: var(--bg-surface);
 }
 
 .header-logout:hover {
@@ -507,7 +519,6 @@
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   transition: border-color var(--duration) var(--ease), background var(--duration) var(--ease), opacity var(--duration);
-  touch-action: none;
   user-select: none;
   -webkit-user-select: none;
 }
