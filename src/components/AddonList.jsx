@@ -1,7 +1,8 @@
-import { useMemo, useCallback } from "react";
-import { DndContext, closestCenter, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { useMemo, useCallback, useState } from "react";
+import { DndContext, closestCenter, DragOverlay, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import SortableAddonCard from "./SortableAddonCard";
+import AddonCard from "./AddonCard";
 import { addonKey } from "../utils/addon";
 import { IconPlus } from "./Icons";
 
@@ -21,13 +22,16 @@ export default function AddonList({
   onOpenAddModal,
   onOpenDetail,
 }) {
-  /* dnd-kit sensors — MouseSensor for desktop, TouchSensor with long delay for mobile */
   const sensors = useSensors(
     useSensor(MouseSensor, { activationConstraint: { distance: 4 } }),
     useSensor(TouchSensor, { activationConstraint: { delay: 200, tolerance: 8 } }),
   );
 
-  /* Filter by search query */
+  const [activeId, setActiveId] = useState(null);
+  const [overId, setOverId] = useState(null);
+  const [dropPosition, setDropPosition] = useState(null);
+  const activeAddon = activeId ? addons.find((a) => addonKey(a) === activeId) : null;
+
   const filtered = useMemo(() => {
     if (!searchQuery.trim()) return addons;
     const q = searchQuery.toLowerCase();
@@ -41,12 +45,32 @@ export default function AddonList({
     });
   }, [addons, searchQuery]);
 
-  /* Stable IDs for sortable context */
   const itemIds = useMemo(() => filtered.map((a) => addonKey(a) || String(a)), [filtered]);
 
-  /* Handle drag end — compute new order */
+  const handleDragStart = useCallback((event) => {
+    setActiveId(event.active.id);
+  }, []);
+
+  const handleDragOver = useCallback((event) => {
+    const { active, over } = event;
+    if (!over) {
+      setOverId(null);
+      setDropPosition(null);
+      return;
+    }
+
+    const activeIndex = itemIds.indexOf(active.id);
+    const overIndex = itemIds.indexOf(over.id);
+
+    setOverId(over.id);
+    setDropPosition(activeIndex > overIndex ? "top" : "bottom");
+  }, [itemIds]);
+
   const handleDragEnd = useCallback((event) => {
     const { active, over } = event;
+    setActiveId(null);
+    setOverId(null);
+    setDropPosition(null);
     if (!over || active.id === over.id) return;
 
     const oldIndex = addons.findIndex((a) => addonKey(a) === active.id);
@@ -56,7 +80,6 @@ export default function AddonList({
     onReorder(oldIndex, newIndex);
   }, [addons, onReorder]);
 
-  /* Loading */
   if (loading) {
     return (
       <div className="addon-list">
@@ -85,7 +108,6 @@ export default function AddonList({
     );
   }
 
-  /* Empty state */
   if (addons.length === 0) {
     return (
       <div className="empty-state">
@@ -111,6 +133,8 @@ export default function AddonList({
     <DndContext
       sensors={sensors}
       collisionDetection={closestCenter}
+      onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
       autoScroll={{
         acceleration: 30,
@@ -134,11 +158,29 @@ export default function AddonList({
                 onToggleFav={() => onToggleFav(addon)}
                 onOpenDetail={() => onOpenDetail(addon)}
                 cardIndex={i}
+                showDropTop={overId === key && dropPosition === "top"}
+                showDropBottom={overId === key && dropPosition === "bottom"}
               />
             );
           })}
         </div>
       </SortableContext>
+      <DragOverlay>
+        {activeAddon ? (
+          <div className="drag-overlay-card">
+            <AddonCard
+              addon={activeAddon}
+              isSelected={selected.has(activeId)}
+              isFav={favorites.some((f) => addonKey(f) === activeId)}
+              isInstalled={installedKeys.has(activeId)}
+              dragHandleProps={{}}
+              onToggleSelect={() => {}}
+              onToggleFav={() => {}}
+              onOpenDetail={() => {}}
+            />
+          </div>
+        ) : null}
+      </DragOverlay>
     </DndContext>
   );
 }

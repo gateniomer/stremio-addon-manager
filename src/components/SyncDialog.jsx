@@ -1,4 +1,4 @@
-import { IconX, IconAlertTriangle, IconPlus, IconTrash } from "./Icons";
+import { IconX, IconPlus, IconTrash } from "./Icons";
 
 /**
  * Custom sync confirmation dialog (replaces window.confirm).
@@ -10,11 +10,11 @@ export default function SyncDialog({ count, added, removed, loading, onConfirm, 
     <div className="modal-overlay" onClick={onCancel}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2><IconAlertTriangle className="header-icon" /> Sync to Stremio</h2>
+          <h2>Sync to Stremio</h2>
           <button className="modal-close" onClick={onCancel}><IconX /></button>
         </div>
         <div className="modal-body modal-confirm">
-          <p>This will <strong>replace</strong> your Stremio addon collection with <strong>{count} addon(s)</strong>.</p>
+          <p>You are about to sync <strong>{count} addon(s)</strong> to your Stremio account.</p>
           {hasChanges && (
             <div className="sync-changes">
               {added?.length > 0 && (
@@ -35,11 +35,11 @@ export default function SyncDialog({ count, added, removed, loading, onConfirm, 
               )}
             </div>
           )}
-          <p className="text-muted">This action cannot be undone.</p>
+          <p className="text-muted">Your Stremio catalog will be updated to match.</p>
         </div>
         <div className="modal-footer">
           <button className="btn-ghost" onClick={onCancel}>Cancel</button>
-          <button className="btn-danger" onClick={onConfirm} disabled={loading}>
+          <button className="btn-primary" onClick={onConfirm} disabled={loading}>
             {loading ? "Syncing..." : "Sync Now"}
           </button>
         </div>

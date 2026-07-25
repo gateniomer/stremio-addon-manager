@@ -1306,6 +1306,15 @@
   pointer-events: none;
 }
 
+.drop-skeleton .skeleton::after {
+  animation: none;
+}
+
+.drop-skeleton {
+  outline: 2px solid rgba(29, 209, 161, 0.4);
+  outline-offset: -1px;
+}
+
 .skeleton {
   background: var(--bg-surface);
   border-radius: var(--radius-sm);
@@ -1398,6 +1407,14 @@
 
 .sortable-card {
   animation: fade-in 0.35s var(--ease) both;
+}
+
+.drag-overlay-card {
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--accent-teal);
+  opacity: 0.95;
+  pointer-events: none;
 }
 
 .btn-primary,
