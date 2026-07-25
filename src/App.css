@@ -586,7 +586,7 @@
 .addon-list {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
+  gap: var(--sp-1);
 }
 
 /* ── Addon Card ─────────────────────────────────── */
@@ -1308,6 +1308,25 @@
 
 .drop-skeleton .skeleton::after {
   animation: none;
+}
+
+.drop-line {
+  height: 2px;
+  margin: var(--sp-2) var(--sp-4);
+  background: repeating-linear-gradient(
+    90deg,
+    var(--accent-teal) 0px,
+    var(--accent-teal) 6px,
+    transparent 6px,
+    transparent 10px
+  );
+  border-radius: 1px;
+  animation: drop-line-in 0.15s var(--ease) both;
+}
+
+@keyframes drop-line-in {
+  from { opacity: 0; transform: scaleX(0.5); }
+  to   { opacity: 1; transform: scaleX(1); }
 }
 
 .drop-skeleton {

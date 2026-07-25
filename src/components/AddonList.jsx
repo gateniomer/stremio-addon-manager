@@ -1,5 +1,5 @@
 import { useMemo, useCallback, useState } from "react";
-import { DndContext, closestCenter, DragOverlay, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { DndContext, closestCorners, DragOverlay, MouseSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import SortableAddonCard from "./SortableAddonCard";
 import AddonCard from "./AddonCard";
@@ -132,13 +132,13 @@ export default function AddonList({
   return (
     <DndContext
       sensors={sensors}
-      collisionDetection={closestCenter}
+      collisionDetection={closestCorners}
       onDragStart={handleDragStart}
       onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
       autoScroll={{
-        acceleration: 30,
-        thresholds: { x: 0, y: 0.15 },
+        acceleration: 40,
+        thresholds: { x: 0, y: 0.35 },
         interval: 10,
       }}
     >

@@ -14,31 +14,9 @@ export default function SortableAddonCard({ id, addon, isSelected, isFav, isInst
     animationDelay: `${(cardIndex || 0) * 30}ms`,
   };
 
-  const skeleton = (
-    <div className="addon-card skeleton-card drop-skeleton">
-      <span className="skeleton skeleton-grip" />
-      <span className="skeleton skeleton-thumb" />
-      <div className="addon-info">
-        <div className="addon-name-row">
-          <span className="skeleton skeleton-name" />
-          <span className="skeleton skeleton-version" />
-        </div>
-        <div className="addon-badges">
-          <span className="skeleton skeleton-badge" />
-        </div>
-        <p className="skeleton skeleton-desc" />
-      </div>
-      <div className="addon-actions">
-        <span className="skeleton skeleton-action-btn" />
-        <span className="skeleton skeleton-action-btn" />
-        <span className="skeleton skeleton-action-btn" />
-      </div>
-    </div>
-  );
-
   return (
     <>
-      {showDropTop && skeleton}
+      {showDropTop && <div className="drop-line" />}
       <div ref={setNodeRef} style={style} className="sortable-card">
         <AddonCard
           addon={addon}
@@ -51,7 +29,7 @@ export default function SortableAddonCard({ id, addon, isSelected, isFav, isInst
           onOpenDetail={onOpenDetail}
         />
       </div>
-      {showDropBottom && skeleton}
+      {showDropBottom && <div className="drop-line" />}
     </>
   );
 }
